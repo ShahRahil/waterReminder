@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Water Reminder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #e0f7fa;
+    }
+    h1 {
+      color: #00796b;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+    button:hover {
+      background: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <h1>💧 Stay Hydrated!</h1>
+  <p>This site will remind you to drink water every hour.</p>
+  <button onclick="startReminders()">Start Reminders</button>
+
+  <script>
+    function startReminders() {
+      // Ask permission for notifications
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          alert("Reminders started! You'll get a notification every hour.");
+          sendNotification(); // send first notification
+          setInterval(sendNotification, 60 * 60 * 1000); // every hour
+        } else {
+          alert("Please allow notifications to receive reminders.");
+        }
+      });
+    }
+
+    function sendNotification() {
+      new Notification("💧 Time to drink water!", {
+        body: "Stay hydrated and healthy!",
+        icon: "https://cdn-icons-png.flaticon.com/512/3103/3103446.png"
+      });
+    }
+  </script>
+</body>
+</html>
